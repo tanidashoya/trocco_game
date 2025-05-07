@@ -2,28 +2,9 @@
 #トロッコが暴走して5人いる線路に突っ込みそう！線路を切り替えれば1人いる線路に突っ込む。
 #線路を切り替えるレバーを引く？
 
-import tkinter as tk
-from tkinter import ttk
+from flask import Flask,render_template,request
 
-#GUIアプリのウィンドウ・ラベルを作成
-# window = tk.Tk()
-# window.title("トロッコ問題～あなたの倫理観は？～")
-# window.geometry("700x800")
-# label1 = tk.Label(window,text=("暴走するトロッコがこのまま進むと、メイン線路上の5人をひいてしまう。\n"
-#                     "しかし、あなたの目の前にはレバーがあり、それを引くとトロッコはサブ線路に切り替わり、そちらには1人がいる。\n"
-#                     "あなたはレバーを引いて1人を犠牲にし、5人を救うべきか？"),justify="left")
-# label1.place(x=50,y=50)
-
-# label2 = tk.Label(window,text="メイン線路にいる人")
-# label2.place(x=50,y=200)
-
-# label3 = tk.Label(window,text="サブ線路にいる人")
-# label3.place(x=50,y=300)
-
-# label4 = tk.Label(window,text="レバーをどうする？")
-# label4.place(x=50,y=300)
-
-# window.mainloop()
+app = Flask(__name__)
 
 #トロッコ問題基本コード
 def trocco_run(num_on_main_track,num_on_sub_track,thinking):        
