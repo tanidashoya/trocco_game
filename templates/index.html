@@ -7,35 +7,54 @@
   <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
 </head>
 <body>
-    <h1>トロッコ問題～全１０問～</h1>
-
-</body>
-
-<!--問題文-->
-<p>
-  あなたはメイン線路とサブ線路を切り替えるレバーの前に立っています。<br>
-  そのとき!トロッコが暴走して、5人の人がいるメイン線路に突っ込みそうです!!<br>
-  目の前のレバーで線路を切り替えれば1人いるサブ線路にトロッコが突っ込みます!<br>
-  線路を切り替えるレバーを引きますか？
-</p>
-
-<!--メイン線路にいる人-->
-<p>
-  <label>メイン線路にいる5人</label>
-</p>
+  <h1>トロッコ問題～全１０問～</h1>
 
 
-<!--サブ線路にいる人-->
-<p>
-  <label>サブ線路にいる1人</label>
-</p>
+
+  <!--問題文-->
+  <p>
+    あなたはメイン線路とサブ線路を切り替えるレバーの前に立っています。<br>
+    そのとき!トロッコが暴走して、5人の人がいるメイン線路に突っ込みそうです!!<br>
+    目の前のレバーで線路を切り替えれば1人いるサブ線路にトロッコが突っ込みます!<br>
+    線路を切り替えるレバーを引きますか？
+  </p>
+
+  <!--メイン線路にいる人-->
+  <p>
+    <label>メイン線路にいる5人</label>
+  </p>
+  <ul>
+    {% for main_person in main_people %}
+      <li>{{main_person}}</li>
+    {% endfor %}
+  </ul>
+
+  <!--サブ線路にいる人-->
+  <p>
+    <label>サブ線路にいる1人</label>
+  </p>
+  <ul>
+    {% for sub_person in sub_people %}
+      <li>{{sub_person}}</li>
+    {% endfor %}
+  </ul>
+
+<h2>レバーをどうする？</h2>
 
 <!--送信するのは引くor引かないボタンの結果-->
   <form method="POST">
-
+    <p>
+      <button type="submit" name="thinking" value="引く">引く</button>
+    </p>
   </form>
 
+  <form method="POST">
+    <p>
+      <button type="submit" name="thinking" value="引かない">引かない</button>
+    </p>
+  </form>
 
+</body>
 </html>
 
 
