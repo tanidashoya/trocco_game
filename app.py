@@ -21,8 +21,8 @@ gender_list = ["男性", "女性"]
 num_on_main_track = 5
 num_on_sub_track = 1
 
-@app.route("/", methods=["GET", "POST"])    #sessionは今何問目か記憶しておく
-def trocco_game():
+@app.route("/", methods=["GET", "POST"])    #URLにアクセスされたとき（GET）か、HTMLからデータが送信（POST）されたときに下記の関数を実行
+def trocco_game():                  #sessionは今何問目か記憶しておく（Flaskのsessionは関数の中で使っていても、リクエストをまたいで値を保持できる）
     if "round" not in session:      #sessionにroundが存在していなければ0にして、answer(引くor引かないをいれる)も空にしておく
         session["round"] = 0
         session["answers"] = []
