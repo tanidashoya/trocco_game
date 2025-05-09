@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AIによる倫理観の考察</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='finished.css')}}">
+</head>
+    <h1>トロッコ問題終了！！</h1>
+    <h2>AIによる倫理観の考察</h2>
+    <ul>
+        <label>あなたの結果</label>
+        {% for res in result %}
+            <li>{{res[0],res[1],res[2]}}</li>
+        {% endfor %}
+    </ul>
+    <p>
+        <label>AIによる考察</label>
+        <p>{{ai_res}}</p>
+    </p>
+
+</html>
+
