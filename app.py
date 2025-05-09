@@ -9,7 +9,7 @@ import openai
 
 app = Flask(__name__)
 app.secret_key = 'shoya_secret_key'  # ← 任意の文字列（絶対に必要）【sessionを使う場合には必ず必要】
-openai.api_key = os.environ.get("openai_api")
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 class Person:
     def __init__(self, age, gender):
