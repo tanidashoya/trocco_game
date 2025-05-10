@@ -6,18 +6,22 @@
     <title>AIによる倫理観の考察</title>
     <link rel="stylesheet" href="{{url_for('static',filename='finished.css')}}">
 </head>
+<body>
     <h1>トロッコ問題終了！！</h1>
     <h2>AIによる倫理観の考察</h2>
+    <p>{{ai_res}}</p>
+
+    <p><strong>解答結果</strong></p>
     <ul>
-        <label>あなたの結果</label>
-        {% for res in result %}
-            <li>{{res[0],res[1],res[2]}}</li>
+        {% for res in result %}     {#python構文をHTMLで記述するときには制御分は{% %}で囲って出力は{{}}で囲う#}
+          <strong>{{loop.index}}問目</strong>   <!--インデックスを取得して繰り返す（1回目からスタートする）-->
+          <li>
+            メイン線路：{{res[0] | join(", ")}}<br>   <!--リストを, でつないで1つの文字列にする（pythonで言うところの",".join(res[0])）-->
+             サブ線路 ：{{res[1] | join(", ")}}<br>
+              レバー  ：{{res[2]}}
+          </li>
         {% endfor %}
     </ul>
-    <p>
-        <label>AIによる考察</label>
-        <p>{{ai_res}}</p>
-    </p>
-
+</body>
 </html>
 
