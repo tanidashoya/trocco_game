@@ -9,18 +9,14 @@
 <body>
   <h1>トロッコ問題～全１０問～</h1>
 
-
-
   <!--問題文-->
-  <p>
-    あなたはメイン線路とサブ線路を切り替えるレバーの前に立っています。<br>
-    そのとき!トロッコが暴走して、5人の人がいるメイン線路に突っ込みそうです!!<br>
-    目の前のレバーで線路を切り替えれば1人いるサブ線路にトロッコが突っ込みます!<br>
-    線路を切り替えるレバーを引きますか？
+  <p class="question">
+    あなたは線路を切り替えるレバーの前に立っています。<br>
+    そのとき！！トロッコが暴走して5人いるメイン線路に突っ込みそうです！！<br>
+    目の前のレバーで線路を切り替えれば1人いるサブ線路にトロッコが突っ込みます。<br>
+    あなたはレバーを引きますか？
   </p>
-  <p>
-    ※10問解答後AI処理が開始されますが、処理には数秒かかります
-  </p>
+
   <!--メイン線路にいる人-->
   <p>
     <label>メイン線路にいる5人</label>
@@ -44,23 +40,39 @@
 <h2>レバーをどうする？</h2>
 
 <!--送信するのは引くor引かないボタンの結果-->
-  <form method="POST">
-    <p>
-      <button type="submit" name="thinking" value="引く">引く</button>
-    </p>
-  </form>
+  <div class="thinking-box">
+    <form method="POST">
+      <p>
+        <button type="submit" name="thinking" value="引く">
+          引く<br>
+          （トロッコはサブ線路へ）
+        </button>
+      </p>
+    </form>
 
-  <form method="POST">
-    <p>
-      <button type="submit" name="thinking" value="引かない">引かない</button>
+    <form method="POST">
+      <p>
+        <button type="submit" name="thinking" value="引かない">
+          引かない<br>
+          （トロッコはメイン線路へ）
+        </button>
+      </p>
+    </form>
+    <p class="round_count">
+      {{round_count}}問目 / 全10問
     </p>
-  </form>
+  </div>
+
+ 
+  
+  <p class="attention">
+    ※10問解答後AI処理が開始されますが、処理には数秒かかります
+  </p>
 
 </body>
 </html>
 
 
 <!--明日の課題-->
-<!--pythonの値をHTMLで表示する方法-->
 <!--cssで要素ごとの装飾だけでなく要素の中でもさらに個別の装飾をする方法-->
 

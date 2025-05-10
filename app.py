@@ -94,13 +94,14 @@ def trocco_game():                  #sessionは今何問目か記憶しておく
         Person(rd.randint(0, 80), rd.choice(gender_list)) for _ in range(num_on_sub_track)
     ]
 
-    main_people = [f"{p.age}歳の{p.gender}" for p in main_track_person]
-    sub_people = [f"{p.age}歳の{p.gender}" for p in sub_track_person]
+    main_people = [f"{p.age}歳 の {p.gender}" for p in main_track_person]
+    sub_people = [f"{p.age}歳 の {p.gender}" for p in sub_track_person]
 
     session["main_people"] = main_people #sessionで一時的に値を保持
     session["sub_people"] = sub_people  
+    round_count = session["round"] + 1 #何問目かを表示するために
 
-    return render_template("index.html", main_people=main_people, sub_people=sub_people)
+    return render_template("index.html", main_people=main_people, sub_people=sub_people,round_count=round_count)
         
 
 if __name__ == "__main__":
