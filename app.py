@@ -25,7 +25,7 @@ result = []
 @app.before_request     #すべてのリクエストの前に毎回呼び出される特別な関数
 def cleanup_session_and_result():
     #「ラウンドが終わっている」か「そもそも round が無い」なら新しいゲームにする
-    if session.get("round", 0) >= 11:
+    if request.method == "GET" and session.get("round", 0) >= 10:   #sessionをクリアーするのはリクエストがGETのときのみ
         session.clear()          # ← round・answers など全部消す(クッキーを初期化している)
     if "round" not in session:   # sessionの各値を初期化している
         session["round"] = 0
@@ -36,6 +36,7 @@ def cleanup_session_and_result():
 
 @app.route("/", methods=["GET", "POST"])    #URLにアクセスされたとき（GET）か、HTMLからデータが送信（POST）されたときに下記の関数を実行
 def trocco_game():                  #sessionは今何問目か記憶しておく（Flaskのsessionは関数の中で使っていても、リクエストをまたいで値を保持できる）
+    
     if "round" not in session:      #sessionにroundが存在していなければ0にして、answer(引くor引かないをいれる)も空にしておく
         session["round"] = 0
         session["answers"] = []
@@ -104,8 +105,10 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 
+#最初のresultに追加されるmain_peopleとsub_peopleがnoneになっている問題の解決
 #finished.htmlに行くところがAI処理が入るのでページ遷移が遅くなる。
 #そのためいったん別の画面をfinished.htmlに表示するか、別のhtmlファイルに移動してそこで処理を進めるか？
+#renderでやったときにいきなり結果画面finished.htmlになる
 
 
 """
