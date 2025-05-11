@@ -19,24 +19,23 @@
     <ul>
         {% for res in result %}     {#python構文をHTMLで記述するときには制御分は{% %}で囲って出力は{{}}で囲う#}
           <!--インデックスを取得して繰り返す（1回目からスタートする）-->
-          <li>
+          
             <strong>・{{loop.index}}問目</strong><br>
-            メイン線路：<br>
+            <label class="main">メイン線路：</label><br>
             {% for i in res[0] %}
-                {{i}}<br>
+                <li>{{i}}</li><br>
             {% endfor %}
 
-            サブ線路：<br>
+            <label class="sub">サブ線路：</label><br>
             {% for j in res[1] %}
-                {{j}}<br>
+                <li>{{j}}</li><br>
             {% endfor %}
 
-            レバー：<br>
-            {{res[2]}}
+            <label class="lever">レバー：</label><br>
+            <li>{{res[2]}}</li>
             <!-- メイン線路：{{res[0] | join(", ")}}<br>   リストを, でつないで1つの文字列にする（pythonで言うところの",".join(res[0])） -->
              <!-- サブ線路 ：{{res[1] | join(", ")}}<br>
               レバー  ：{{res[2]}} -->
-          </li>
         {% endfor %}
     </ul>
 </body>

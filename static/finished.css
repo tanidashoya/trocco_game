@@ -36,6 +36,20 @@ ul{
 }
 
 li{
-    padding: 12px;
+    padding: 8px;
     border-bottom: 1px solid #ddd;
+}
+
+.main{
+    margin-bottom: 8px;
+}
+
+
+.sub{
+    margin-bottom: 8px;
+}
+
+
+.lever{
+    margin-bottom: 8px;
 }
