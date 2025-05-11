@@ -28,3 +28,14 @@ h1{
     line-height: 1.6;
 }
 
+ul{
+    padding: 8px;
+    background-color: #fff;
+    border-radius: 8px;
+    list-style: none;
+}
+
+li{
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}

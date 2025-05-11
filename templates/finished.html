@@ -12,17 +12,30 @@
     <p class="finish">トロッコ問題終了！！</p>
     <h1>AIによる倫理観の考察</h1>
     <div class="answer-box">
-      <p class="answer">{{ai_res}}</p>
+      <p class="answer">{{ ai_res | replace('\n\n', '<br><br>') | replace('\n', '<br>') | safe }}</p>
+      <!--ai_res に対して順にフィルター（＝関数）を適用していく、Pythonでいうメソッドチェーンと同じ構造-->
     </div>
     <p><strong>解答結果</strong></p>
     <ul>
         {% for res in result %}     {#python構文をHTMLで記述するときには制御分は{% %}で囲って出力は{{}}で囲う#}
           <!--インデックスを取得して繰り返す（1回目からスタートする）-->
           <li>
-            <strong>{{loop.index}}問目</strong><br>
-            メイン線路：{{res[0] | join(", ")}}<br>   <!--リストを, でつないで1つの文字列にする（pythonで言うところの",".join(res[0])）-->
-             サブ線路 ：{{res[1] | join(", ")}}<br>
-              レバー  ：{{res[2]}}
+            <strong>・{{loop.index}}問目</strong><br>
+            メイン線路：<br>
+            {% for i in res[0] %}
+                {{i}}<br>
+            {% endfor %}
+
+            サブ線路：<br>
+            {% for j in res[1] %}
+                {{j}}<br>
+            {% endfor %}
+
+            レバー：<br>
+            {{res[2]}}
+            <!-- メイン線路：{{res[0] | join(", ")}}<br>   リストを, でつないで1つの文字列にする（pythonで言うところの",".join(res[0])） -->
+             <!-- サブ線路 ：{{res[1] | join(", ")}}<br>
+              レバー  ：{{res[2]}} -->
           </li>
         {% endfor %}
     </ul>
