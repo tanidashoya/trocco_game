@@ -28,6 +28,12 @@ h1{
     line-height: 1.6;
 }
 
+.result{
+    text-align: center;
+    margin-top: 12px;
+    font-size: 24px;
+}
+
 ul{
     padding: 8px;
     background-color: #fff;
@@ -35,21 +41,28 @@ ul{
     list-style: none;
 }
 
+.count{
+    margin: 12px;
+    font-size: 18px;
+}
+
 li{
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
+    padding: 3px;
 }
 
 .main{
     margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
 }
 
 
 .sub{
     margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
 }
 
 
 .lever{
     margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
 }

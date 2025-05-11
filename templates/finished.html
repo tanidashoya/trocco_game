@@ -15,7 +15,7 @@
       <p class="answer">{{ ai_res | replace('\n\n', '<br><br>') | replace('\n', '<br>') | safe }}</p>
       <!--ai_res に対して順にフィルター（＝関数）を適用していく、Pythonでいうメソッドチェーンと同じ構造-->
     </div>
-    <p><strong>解答結果</strong></p>
+    <p class="result"><strong>解答結果</strong></p>
     <ul>
         {% for res in result %}     {#python構文をHTMLで記述するときには制御分は{% %}で囲って出力は{{}}で囲う#}
           <!--インデックスを取得して繰り返す（1回目からスタートする）-->
