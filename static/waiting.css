@@ -17,12 +17,18 @@ h1{
     margin-bottom: 20px;
 }
 
+.AI-image{
+    width: 60%;
+    text-align: center;
+    padding: 10px
+}
+
 .answer-box{
     text-align: center;
 }
 
 button {
-    padding: 12px 10px;
+    padding: 12px 14px;
     font-size: 18px;
     background-color: #363636;
     color: white;
