@@ -12,15 +12,19 @@ body{
 }
 
 h1{
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
     margin-bottom: 20px;
 }
 
 .AI-image{
-    width: 60%;
+    width: 100%;
     text-align: center;
     padding: 10px
+}
+
+img{
+    margin:20px 0;
 }
 
 .answer-box{
