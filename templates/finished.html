@@ -9,7 +9,6 @@
 
 </head>
 <body>
-    <p class="finish">トロッコ問題終了！！</p>
     <h1>AIによる倫理観の考察</h1>
     <div class="answer-box">
       <p class="answer">{{ ai_res | replace('\n\n', '<br><br>') | replace('\n', '<br>') | safe }}</p>
@@ -20,18 +19,18 @@
         {% for res in result %}     {#python構文をHTMLで記述するときには制御分は{% %}で囲って出力は{{}}で囲う#}
           <!--インデックスを取得して繰り返す（1回目からスタートする）-->
           
-            <strong>・{{loop.index}}問目</strong><br>
-            <label class="main">メイン線路：</label><br>
+            <label class="count">・{{loop.index}}問目</label>
+            <label class="main">メイン線路：</label>
             {% for i in res[0] %}
-                <li>{{i}}</li><br>
+                <li>{{i}}</li>
             {% endfor %}
 
-            <label class="sub">サブ線路：</label><br>
+            <label class="sub">サブ線路：</label>
             {% for j in res[1] %}
-                <li>{{j}}</li><br>
+                <li>{{j}}</li>
             {% endfor %}
 
-            <label class="lever">レバー：</label><br>
+            <label class="lever">レバー：</label>
             <li>{{res[2]}}</li>
             <!-- メイン線路：{{res[0] | join(", ")}}<br>   リストを, でつないで1つの文字列にする（pythonで言うところの",".join(res[0])） -->
              <!-- サブ線路 ：{{res[1] | join(", ")}}<br>

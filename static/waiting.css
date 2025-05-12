@@ -1,0 +1,37 @@
+body{
+    font-family:sans-serif;
+    padding: 8px;
+    background-color:#f5f5f5 ;
+}
+
+.finish{
+    display: block;
+    text-align: left;
+    padding: 8px;
+    margin: 12px;
+}
+
+h1{
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.answer-box{
+    text-align: center;
+}
+
+button {
+    padding: 12px 10px;
+    font-size: 18px;
+    background-color: #363636;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.attention{
+    font-size: 12px;
+}

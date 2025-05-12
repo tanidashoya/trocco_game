@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AI考察を選択</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='waiting.css') }}">
+</head>
+<body>
+  <p class="finish">トロッコ問題終了！！</p>
+  <h1>AIによる倫理観の考察を行いますか？</h1>
+  <img src="{{url_for('static','filename='AI.png)}}" alt="AI考察出力アイコン" style="max-width: 100%; height: auto;">
+
+  <div class = "answer-box">
+    <a href="{{ url_for('finished') }}">
+        <button type="button">AIによる考察</button>
+    </a>
+  </div>  
+  <p class="attention">
+    ※10問解答後AI処理が開始されますが数秒かかります。
+  </p>
+
+
+</body>
+
+</html>

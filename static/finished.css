@@ -4,10 +4,6 @@ body{
     background-color:#f5f5f5 ;
 }
 
-.finish{
-    font-size: 18px;
-    margin-bottom: 20px;
-}
 
 h1{
     width: 100%;
@@ -42,7 +38,9 @@ ul{
 }
 
 .count{
-    margin: 12px;
+    display: block;
+    margin-bottom: 4px;
+    margin-top: 4px;
     font-size: 18px;
 }
 
@@ -51,18 +49,24 @@ li{
 }
 
 .main{
-    margin-bottom: 8px;
-    border-bottom: 1px solid #ddd;
+    display: block;
+    padding: 3px 0;
+    margin: 6px 0;
+    border-bottom: 3px solid #ddd;
 }
 
 
 .sub{
-    margin-bottom: 8px;
-    border-bottom: 1px solid #ddd;
+    display: block;
+    padding: 3px 0;
+    margin: 6px 0;
+    border-bottom: 3px solid #ddd;
 }
 
 
 .lever{
-    margin-bottom: 8px;
-    border-bottom: 1px solid #ddd;
+    display: block;
+    padding: 3px 0;
+    margin: 6px 0;
+    border-bottom: 3px solid #ddd;
 }

@@ -2,7 +2,7 @@
 #トロッコが暴走して5人いる線路に突っ込みそう！線路を切り替えれば1人いる線路に突っ込む。
 #線路を切り替えるレバーを引く？
 
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, url_for
 import random as rd
 import os
 import openai
@@ -22,12 +22,12 @@ num_on_sub_track = 1
 result = []
 
 #クッキーが残っていたら1回目は正常にできても2回目からはすぐにfinished.htmlにいってしまうためクッキーの初期化が必要
-@app.before_request     #すべてのリクエストの前に毎回呼び出される特別な関数
+@app.before_request     #すべてのルートのリクエストの前に毎回呼び出される特別な関数
 def cleanup_session_and_result():
     #「ラウンドが終わっている」か「そもそも round が無い」なら新しいゲームにする
     if request.method == "GET" and session.get("round", 0) >= 10:   #sessionをクリアーするのはリクエストがGETのときのみ
         session.clear()          # ← round・answers など全部消す(クッキーを初期化している)
-    if "round" not in session:   # sessionの各値を初期化している
+    if "round" not in session and request.path=="/":   # sessionの各値を初期化している(初回のアクセス)
         session["round"] = 0
         session["answers"] = []
         global result            #global変数のresultに
@@ -48,44 +48,8 @@ def trocco_game():                  #sessionは今何問目か記憶しておく
         result.append([session.get("main_people"), session.get("sub_people"), user_choice]) #resultリストへの追加はれクエストがPOSTの時のみに実行されるべき
 
     if session["round"] >= 10 and len(result) >= 10:
-         #AI機能とresultを渡す
-        response = openai.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-            {
-                "role": "system",
-                "content": (
-                    "あなたは一流の哲学者です。箇条書き（1. 全体的な傾向  2. 命の数に対する重視  3. 年齢や性別による影響  4. 思考の変化について  5. 倫理観と価値観  6. 人間関係への考察 ）での出力で分かりやすく整理してください。また、必ず日本語で出力してください"
-                    "それぞれの人の年齢や性別を考慮した発言も踏まえた考察をするように心掛けてください"
-                    "1人1人の人生についての話をするのではなく、あくまで解答者の考え方の考察を出力してください。"
-                    "トロッコ問題の解答を受け取り、その思考から分析・考察を出力してください。"
-                    "口調は親しみやすく、カジュアルで、柔らかい好感の持てる口調でお願いします。"
-                    "前置きはいりません。加えて、さらなる質問はしないようにしてください"
-                    "ユーザーのことはあなたと呼ぶようにしてください。"
-                    "最後にあなた（ユーザー）が社会の中でどんな役割が向いているのかを考察してください"
-                )
-            },
-            {
-                "role": "user",
-                "content": (
-                    "次に渡すリストにはトロッコ問題での10回分の問題とユーザーの解答が[ [ [ メイン線路にいる人物の属性のリスト（レバーを引けば助かる人たち） ], [ サブ線路にいる人物の属性のリスト（レバーを引かなければ助かる人） ], [ ユーザーの解答 ] ], [・・・]]のようにリストで入っています。" 
-                    "前提条件としてメイン線路には5人、サブ線路には1人いて、それぞれの年齢や性別はランダムで設定されるようになっています。"       
-                    "問題の内容とユーザーの解答から、ユーザーの思考の癖や、問題を経るにつれて思考の変化がある場合にはそれらを考察して結果を出力してください"
-                    f"こちらがリストです：{result}。"
-                    "超一流の哲学者としてあいまいな答えを避けて詳細に分かりやすく説明をしてください"
-                )
-            }
-        ],
-            temperature=0.5,
-            presence_penalty=0.7,
-            frequency_penalty=0.5,
-            max_tokens=3000
-            
-            )
-
-        ai_res = response.choices[0].message.content
-        return render_template("finished.html", result=result, ai_res=ai_res)
-
+        return redirect(url_for("waiting"))
+    
     # 問題生成（リクエストがGETでもPOSTでも問題の生成は行われる）※最初はGETなのでこの部分だけ行われる
     main_track_person = [
         Person(rd.randint(0, 80), rd.choice(gender_list)) for _ in range(num_on_main_track)
@@ -102,7 +66,53 @@ def trocco_game():                  #sessionは今何問目か記憶しておく
     round_count = session["round"] + 1 #何問目かを表示するために
 
     return render_template("index.html", main_people=main_people, sub_people=sub_people,round_count=round_count)
+
+
+@app.route("/waiting",methods=["GET","POST"])
+def waiting():
+    return render_template("waiting.html")
+
+@app.route("/finished",methods=["GET"])
+def finished():    
+    #AI機能とresultを渡す
+    global result
+    response = openai.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+        {
+            "role": "system",
+            "content": (
+                "あなたは一流の哲学者です。箇条書き（1. 全体的な傾向  2. 命の数に対する重視  3. 年齢や性別による影響  4. 思考の変化について  5. 倫理観と価値観  6. 人間関係への考察 ）での出力で分かりやすく整理してください。また、必ず日本語で出力してください"
+                "それぞれの人の年齢や性別を考慮した発言も踏まえた考察をするように心掛けてください"
+                "1人1人の人生についての話をするのではなく、あくまで解答者の考え方の考察を出力してください。"
+                "トロッコ問題の解答を受け取り、その思考から分析・考察を出力してください。"
+                "口調は親しみやすく、カジュアルで、柔らかい好感の持てる口調でお願いします。"
+                "前置きはいりません。加えて、さらなる質問はしないようにしてください"
+                "ユーザーのことはあなたと呼ぶようにしてください。"
+                "最後にあなた（ユーザー）が社会の中でどんな役割が向いているのかを考察してください"
+            )
+        },
+        {
+            "role": "user",
+            "content": (
+                "次に渡すリストにはトロッコ問題での10回分の問題とユーザーの解答が[ [ [ メイン線路にいる人物の属性のリスト（レバーを引けば助かる人たち） ], [ サブ線路にいる人物の属性のリスト（レバーを引かなければ助かる人） ], [ ユーザーの解答 ] ], [・・・]]のようにリストで入っています。" 
+                "前提条件としてメイン線路には5人、サブ線路には1人いて、それぞれの年齢や性別はランダムで設定されるようになっています。"       
+                "問題の内容とユーザーの解答から、ユーザーの思考の癖や、問題を経るにつれて思考の変化がある場合にはそれらを考察して結果を出力してください"
+                f"こちらがリストです：{result}。リストが渡されていない場合はリストが渡されていませんと出力してください"
+                "超一流の哲学者としてあいまいな答えを避けて詳細に分かりやすく説明をしてください"
+            )
+        }
+    ],
+        temperature=0.5,
+        presence_penalty=0.7,
+        frequency_penalty=0.5,
+        max_tokens=3000
         
+        )
+
+    ai_res = response.choices[0].message.content
+    return render_template("finished.html", result=result, ai_res=ai_res)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
