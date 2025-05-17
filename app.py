@@ -17,8 +17,8 @@ class Person:
         self.gender = gender
 
 gender_list = ["男性", "女性"]
-num_on_main_track = 5
-num_on_sub_track = 5
+num_on_main_track = rd.randint(1,5)
+num_on_sub_track = rd.randint(1,5)
 result = []
 
 #クッキーが残っていたら1回目は正常にできても2回目からはすぐにfinished.htmlにいってしまうためクッキーの初期化が必要
